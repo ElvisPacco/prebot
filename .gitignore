@@ -1,0 +1,33 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Puppeteer local Chromium cache
+**/puppeteer*/.local-chromium/
+
+# Env config
+.env
+.env.local
+.env.development
+.env.production
+
+# Logs
+logs/
+*.log
+*.csv
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Build outputs
+/dist
+/build
+*.tgz
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp

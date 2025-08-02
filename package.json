@@ -1,0 +1,27 @@
+{
+  "name": "prebot_package",
+  "version": "1.0.0",
+  "description": "Official Package",
+  "main": "main.js",
+  "scripts": {
+    "test": "test",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "noe-repository\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[\u001b[C\u001b[\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[-repository todavia\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[\u001b[C\u001b[D-"
+  },
+  "keywords": [
+    "chatbot",
+    "bot",
+    "whatsapp"
+  ],
+  "author": "Elvis Ruben Pacco Concori\u001b[1;5D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[DC",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "puppeteer": "^24.15.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.31.0"
+  }
+}
