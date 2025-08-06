@@ -6,24 +6,44 @@ const fs = require('fs').promises;
 
 // Create a new client instance
 const client = new Client({
-    authStrategy: new LocalAuth(),
+    authStrategy: new LocalAuth({
+        dataPath: "./.wwebjs_auth/.session-client-default"
+    }),
     puppeteer: {
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-    }
+    },
+    clientId: "client-default",
 });
-
+const clientDarwin = new Client({
+    authStrategy: new LocalAuth({
+        dataPath: "./.wwebjs_auth/.session-client-darwin"
+    }),
+    puppeteer: {
+        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    },
+    clientId: "client-darwin"
+});
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
-    console.log('Client is ready!');
+    console.log('Client Default is ready!');
+});
+clientDarwin.once('ready', () => {
+    console.log('Client Darwin is ready!');
 });
 
 // When the client received QR-Code
 client.on('qr', (qr) => {
+    console.log('QR para Cliente Default');
+    qrcode.generate(qr, {small: true});
+});
+clientDarwin.on('qr', (qr) => {
+    console.log('QR para Cliente Darwin');
     qrcode.generate(qr, {small: true});
 });
 
 // Start your client
 client.initialize();
+//clientDarwin.initialize();
 
 client.on('message_create', async (message) => {
     //client.sendMessage(message.from, "Vino desde: " + message.from);
@@ -272,13 +292,19 @@ client.on('message_create', async (message) => {
     console.log(chat.name + " || Vino desde: " + message.from + " -> " + message.body);
 });
 
+clientDarwin.on('message_create', async (message) => {
+    const chat = await message.getChat();
+    console.log(chat.name + " || Vino desde: " + message.from);
+});
 
-client.on('message_create', async (message) => {
+
+clientDarwin.on('message_create', async (message) => {
     if (message.body.toLowerCase().includes("masivo")) {
-        mensaje = '*INSCRIPCIÓN OBSERVADA - UNJBG*\nEstimado postulante. \n\nLa Dirección de Admisión de la Universidad Nacional Jorge Basadre Grohmann le informa que *tiene una observación en su preinscripción* al SIMULACRO DE EXAMEN DE ADMISIÓN 2025. \n\n*Debe acceder al portal de inscripción* (https://postula.unjbg.edu.pe/) para conocer el detalle de su observación y *subsanarla a la brevedad posible.*';
-        client.sendMessage('51956836336' + '@c.us', mensaje);
-        //client.sendMessage('51958012774' + '@c.us', mensaje);
-        //client.sendMessage('51930890025' + '@c.us', mensaje);
-        client.sendMessage(message.from, 'Se acaba de enviar el mensaje a los números asignados');
+        mensaje = '*INSCRIPCIÓN OBSERVADA - PROCESO 2025-II*\nEstimado postulante. \n\nLa Dirección de Admisión de la Universidad Nacional Jorge Basadre Grohmann le informa que *tiene una observación en su preinscripción* al PROCESO DE ADMISIÓN 2025-II. \n\n*Debe acceder al portal de inscripción* (https://postula.unjbg.edu.pe/) para conocer el detalle de su observación y *subsanarla a la brevedad posible.*';
+
+        clientDarwin.sendMessage('51956836336' + '@c.us', mensaje);
+        //clientDarwin.sendMessage('51958012774' + '@c.us', mensaje);
+        //clientDarwin.sendMessage('51930890025' + '@c.us', mensaje);
+        clientDarwin.sendMessage(message.from, 'Se acaba de enviar el mensaje a los números asignados');
 	}
 });
