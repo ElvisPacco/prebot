@@ -33,13 +33,13 @@ client.on('message_create', async (message) => {
             client.sendMessage(message.from, 'pong');
         }
         if (message.body.toLowerCase().includes("hola")) {
-            client.sendMessage(message.from, '¡Hola! 👋 Soy Jorge, el asistente virtual de la Dirección de Admisión - UNJBG 🤖.');
+            client.sendMessage(message.from, 'Hola, soy Jorge, el asistente virtual de la Dirección de Admisión - UNJBG 🤖.');
             client.sendMessage(message.from, 'Puedo responder preguntas frecuentes sobre los exámenes Fase I, Fase II, Extraordinario y Simulacro de Examen 🤓.');
         }
         if (message.body.toLowerCase().includes("chau")) {
             message.reply('Aquí estaré para ayudarte. Hasta luego');
         }
-        if (message.body.includes("vacantes")) {
+        if (message.body.toLowerCase().includes("vacantes")) {
             client.sendMessage(message.from, 'Cuadro de vacantes 2025:\n' + 'https://admision.unjbg.edu.pe/vacantes');
         }
         if (message.body.toLowerCase().includes("resultados") && message.body.includes("https") == false) {
@@ -238,6 +238,29 @@ client.on('message', async (msg) => {
         mentions: [userPhone + '@c.us']
     });
 });
+
+client.on('message', async (msg) => {    
+    if (msg.body === 'Mis grupos') {
+        const chat = await msg.getChat(); // defining chat to send the group mention to
+        const groupId = '120363400281541235@g.us'; // defining an ID of a group to mention
+
+        // To mention one group:
+        await chat.sendMessage(
+            `@${groupId}`,
+            { groupMentions: { subject: 'Grupo con Renix', id: groupId } }
+        );
+
+        // To mention a list of groups:
+        const anotherGrpId = '120363400281541235@g.us'; // defining another ID of a group to mention
+        await chat.sendMessage(
+            `Estos son los grupos... @${groupId}, @${anotherGrpId}`, {
+            groupMentions: [
+                { subject: 'Un grupo', id: groupId },
+                { subject: 'Otro grupo', id: anotherGrpId }
+            ]
+        });
+    }
+});
 */
 
 //Enviar mensaje cuando alguien me escriba (como respuesta)
@@ -246,5 +269,16 @@ client.on('message_create', async (message) => {
     if (message.from.endsWith('@g.us') && message.body.toLowerCase() === "elvis") {
         message.reply('Acá estoy, qué fueee');
 	}
-    //console.log(chat.name + " || Vino desde: " + message.from + " -> " + message.body);
+    console.log(chat.name + " || Vino desde: " + message.from + " -> " + message.body);
+});
+
+
+client.on('message_create', async (message) => {
+    if (message.body.toLowerCase().includes("masivo")) {
+        mensaje = '*INSCRIPCIÓN OBSERVADA - UNJBG*\nEstimado postulante. \n\nLa Dirección de Admisión de la Universidad Nacional Jorge Basadre Grohmann le informa que *tiene una observación en su preinscripción* al SIMULACRO DE EXAMEN DE ADMISIÓN 2025. \n\n*Debe acceder al portal de inscripción* (https://postula.unjbg.edu.pe/) para conocer el detalle de su observación y *subsanarla a la brevedad posible.*';
+        client.sendMessage('51956836336' + '@c.us', mensaje);
+        //client.sendMessage('51958012774' + '@c.us', mensaje);
+        //client.sendMessage('51930890025' + '@c.us', mensaje);
+        client.sendMessage(message.from, 'Se acaba de enviar el mensaje a los números asignados');
+	}
 });
